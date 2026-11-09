@@ -35,9 +35,19 @@ fn App() -> Element {
 #[component]
 fn Home() -> Element {
     let details = use_resource(api::functions::get_game_infos);
-    rsx! {
-        div {}
-
+        match &*details.read_unchecked() {
+            Some(Ok(game_infos)) => rsx! {
+                div {
+                    div {"date: {game_infos.date}"},
+                    div {"tick: {game_infos.tick}"},
+                    div {"isPaused: {game_infos.is_paused}"},
+                    div {"speed: {game_infos.speed}"},
+                    div {"gameId: {game_infos.game_id}"},
+                    div {"sessionId: {game_infos.session_id}"}
+                }
+            },
+            Some(Err(err)) => rsx! { "Failed to fetch response: {err:?}" },
+            None => rsx!{ "Loading..." }
     }
 }
 

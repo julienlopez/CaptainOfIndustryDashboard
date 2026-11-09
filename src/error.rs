@@ -1,5 +1,6 @@
 use api::Error;
 
+#[derive(Debug)]
 pub enum Error
 {
     Message(String),

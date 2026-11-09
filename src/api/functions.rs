@@ -4,5 +4,5 @@ use crate::api::error::{Error, Result};
 
 pub async fn get_game_infos() -> Result<GameInfo>
 {
-    Err(Error::Message("To be implemented".into()))
+    Ok(reqwest::get("http://127.0.0.1:3073/api/v1/game-info").await?.json().await?)
 }
